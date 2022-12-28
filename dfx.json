@@ -1,0 +1,29 @@
+{
+  "canisters": {
+    "fyp_backend": {
+      "candid": "src/fyp_backend/fyp_backend.did",
+      "package": "fyp_backend",
+      "type": "rust"
+    },
+    "fyp_frontend": {
+      "dependencies": [
+        "fyp_backend"
+      ],
+      "frontend": {
+        "entrypoint": "src/fyp_frontend/src/index.html"
+      },
+      "source": [
+        "src/fyp_frontend/assets",
+        "dist/fyp_frontend/"
+      ],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "version": 1
+}
