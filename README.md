@@ -35,3 +35,8 @@ dfx deploy
 ```
 
 Once the job completes, your application will be available at `http://localhost:4943?canisterId={asset_canister_id}`.
+
+
+## Notes
+to solve the react router problem: 
+https://reactrouter.com/en/main/start/tutorial
