@@ -18,8 +18,8 @@ class Header extends Component {
           </a>
         </div>
         <div className="float-right flex space-x-2 h-full w-fit px-4 text-lg font-bold text-white">
-          <HeaderButton name="Login" />
-          <HeaderButton name="Profile" />
+          <HeaderButton name="Login" url="/login" />
+          <HeaderButton name="Profile" url="/profile" />
         </div>
       </header>
     )

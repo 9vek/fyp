@@ -9,7 +9,7 @@ class HeaderButton extends Component {
   render() {
     return (
       <div className="h-full grid grid-cols-1 place-items-center px-2 hover:bg-stone-800">
-        <a href="/projects">
+        <a href={ this.props.url }>
           <span className="bx bx-briefcase-alt"></span>
           <span className="hidden md:inline">{ this.props.name }</span>
         </a>
