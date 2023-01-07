@@ -6,8 +6,6 @@ const Home = (props) => {
 
   const authenticated = useSelector(isAuthenticated)
 
-  console.log(authenticated);
-
   return (
     <div className="h-screen grid grid-cols-1 place-items-center">
       <div>{ authenticated ? "Authenticated" : "Unauthenticated" }</div>

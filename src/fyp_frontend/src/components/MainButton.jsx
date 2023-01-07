@@ -1,20 +1,15 @@
-import React, { Component } from "react"
+import React from "react"
 
-class MainButton extends Component {
+const MainButton = (props) => {
 
-  constructor() {
-    super()
-  }
-
-  render() {
     return (
       <div 
-        onClick={ this.props.onClick }
-        className="select-none m-4 py-2 px-4 text-xl text-center rounded-md font-bold text-white bg-stone-900 hover:bg-stone-700 cursor-pointer ">
-        { this.props.name }
+        onClick={ props.onClick }
+        className="select-none my-4 mx-2 py-2 px-4 text-lg font-bold text-center rounded-md text-stone-50 bg-stone-800 hover:bg-stone-700 cursor-pointer ">
+        { props.name }
       </div>
     )
-  }
+    
 }
 
 export default MainButton
