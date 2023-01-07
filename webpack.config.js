@@ -46,7 +46,7 @@ module.exports = {
   target: "web",
   mode: isDevelopment ? "development" : "production",
   entry: {
-    index: path.join(__dirname, "src", frontendDirectory, "src", "index.jsx"),
+    index: path.join(__dirname, "src", frontendDirectory, "src", "App.jsx"),
   },
   devtool: isDevelopment ? "source-map" : false,
   optimization: {

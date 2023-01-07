@@ -19,7 +19,7 @@
     },
     "fyp_frontend": {
       "dependencies": [
-        "fyp_backend", "internet_identity"
+        "internet_identity", "fyp_backend"
       ],
       "frontend": {
         "entrypoint": "src/fyp_frontend/src/index.html"

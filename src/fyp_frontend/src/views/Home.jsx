@@ -1,22 +1,20 @@
 import React, { Component } from "react"
+import { useSelector } from 'react-redux'
+import { isAuthenticated } from "../store/auth"
 
-class LoginForm extends Component {
+const Home = (props) => {
 
-  constructor() {
-    super()
-  }
+  const authenticated = useSelector(isAuthenticated)
 
-  testLogin() {
-    console.log(1);
-  }
+  console.log(authenticated);
 
-  render() {
-    return (
-      <div className="h-screen grid grid-cols-1 place-items-center">
-        <div className="text-2xl font-bold">Fully On-chain Cloud Storage</div>
-      </div>
-    )
-  }
+  return (
+    <div className="h-screen grid grid-cols-1 place-items-center">
+      <div>{ authenticated ? "Authenticated" : "Unauthenticated" }</div>
+      <div className="text-2xl font-bold">Fully On-chain Cloud Storage</div>
+    </div>
+  )
+
 }
 
-export default LoginForm
+export default Home
