@@ -1,6 +1,18 @@
-service : {
-    "greet": (text) -> (text) query;
-}
+type User = record {
+    "principal": principal;
+    "nickname": text;
+    "signature": text;
+    "level": text;
+    "registration_time": text;
+};
+
+type Mail = record {
+    "user": principal;
+    "title": text;
+    "content": text;
+    "post_time": text;
+};
+
 service : {
     "whoami": () -> (principal) query;
 }

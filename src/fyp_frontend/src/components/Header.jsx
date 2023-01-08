@@ -1,7 +1,9 @@
-import React, { Component } from "react"
+import React from "react"
 import { useSelector } from 'react-redux'
 import { isAuthenticated } from "../store/auth"
 import HeaderButton from "./HeaderButton"
+
+import { mdiAccount } from "../../../../node_modules/@mdi/js/mdi"
 
 const Header = (props) => {
 
@@ -10,9 +12,9 @@ const Header = (props) => {
   const headerMenu = () => {
 
     if (!authenticated) {
-      return <HeaderButton name="Login" url="/login" />
+      return <HeaderButton name="Login" icon={mdiAccount} url="/login" />
     } else {
-      return <HeaderButton name="Profile" url="/profile" />
+      return <HeaderButton name="Profile" icon={mdiAccount} url="/profile" />
     }
 
   }
@@ -27,7 +29,7 @@ const Header = (props) => {
         </a>
       </div>
       <div className="float-right flex space-x-2 h-full w-fit px-4 text-lg font-bold text-white">
-        { headerMenu() }
+        {headerMenu()}
       </div>
     </header>
   )

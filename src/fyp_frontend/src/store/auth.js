@@ -33,7 +33,7 @@ export const getActor = () => {
 /* 
   initialize auth client
 */
-export const setAuthClient = createAsyncThunk('auth/setAuthClient', async (dispatch) => {
+export const createAuthClient = createAsyncThunk('auth/createAuthClient', async (dispatch) => {
   authClient = await AuthClient.create()
   return true
 })
@@ -41,7 +41,7 @@ export const setAuthClient = createAsyncThunk('auth/setAuthClient', async (dispa
 /* 
   initialize backend connector
 */
-export const setActor = createAsyncThunk('auth/setActor', async () => {
+export const createActor = createAsyncThunk('auth/createActor', async () => {
   actor = await backendCreateActor(backendCanisterId, {
     agentOptions: {
       identity: authClient.getIdentity(),
@@ -91,9 +91,9 @@ export const authSlice = createSlice({
 
   },
   extraReducers(builder) {
-    builder.addCase(setAuthClient.fulfilled, (state) => {
+    builder.addCase(createAuthClient.fulfilled, (state) => {
       state.isAuthClientReady = true
-    }).addCase(setActor.fulfilled, (state) => {
+    }).addCase(createActor.fulfilled, (state) => {
       state.isActorReady = true
     }).addCase(checkAuthentication.fulfilled, (state, action) => {
       state.isAuthenticated = action.payload

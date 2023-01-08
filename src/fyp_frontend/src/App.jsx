@@ -1,14 +1,15 @@
+import './index.css'
+
 import store from './store/store'
 import { Provider } from 'react-redux'
 import { useSelector, useDispatch } from 'react-redux'
-import { setAuthClient, isAuthClientReady, checkAuthentication, login, isAuthenticated, setActor } from './store/auth'
+import { createAuthClient, isAuthClientReady, checkAuthentication, isAuthenticated, createActor } from './store/auth'
 
 import { RouterProvider } from "react-router-dom"
 import { createBrowserRouter } from "react-router-dom"
 
 import React, { useEffect } from "react"
 import { createRoot } from "react-dom/client"
-import './index.css'
 
 import Header from "./components/Header"
 import Footer from "./components/Footer"
@@ -38,7 +39,7 @@ const App = () => {
   const authenticated = useSelector(isAuthenticated)
 
   useEffect(() => {
-    dispatch(setAuthClient())
+    dispatch(createAuthClient())
     console.log('create auth client');
   }, [])
 
@@ -48,14 +49,14 @@ const App = () => {
 
   useEffect(() => {
     if (authenticated) {
-      dispatch(setActor())
+      dispatch(createActor())
     }
   }, [authenticated])
 
   return (
     <div className="">
       <Header />
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-stone-50">
         <div className="w-full h-16"></div>
         <React.StrictMode>
           <RouterProvider router={ router } />

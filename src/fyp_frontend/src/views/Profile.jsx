@@ -1,35 +1,50 @@
 import React, { useEffect } from "react"
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { useNavigate } from "react-router-dom";
+
 import MainButton from "../components/MainButton"
-import { getAuthClient, isAuthenticated } from "../store/auth"
+import { logout } from "../store/auth"
 
 const Profile = (props) => {
 
+  const dispatch = useDispatch()
+
+  const navigate = useNavigate()
+
+  const doLogout = async () => {
+    await dispatch(logout())
+    navigate('/')
+  }
+
   return (
-    <div
-      className="container mb-32 mt-4 mx-auto min-h-fit max-w-[21cm] bg-white shadow rounded overflow-hidden"
-    >
-      <table className="text-stone-900 text-2xl w-full m-4">
-        <tbody>
-          <tr>
-            <td>id</td>
-            <td>aaaaaaaaaaaa</td>
-          </tr>
-          <tr>
-            <td>name</td>
-            <td>aaaaaaaaaaaa</td>
-          </tr>
-          <tr>
-            <td>email</td>
-            <td>aaaaaaaaaaaa</td>
-          </tr>
-        </tbody>
-      </table>
-      <div className="w-fit mx-4 mt-4 mb-2 flex">
-        <MainButton name="Edit" />
-        <MainButton name="Logout" />
+    <div className="grid grid-cols-1 place-items-center p-32">
+      <div className="relative w-96 h-fit px-8 bg-white rounded-md shadow-md flex flex-col">
+        <div className="absolute left-4 -top-8 grid grid-cols-1 place-items-center w-32 h-32 rounded-full bg-white">
+          <div className="w-28 h-28 rounded-full bg-stone-100"></div>
+        </div>
+        <div className="pl-32 pt-4">
+          <div className="text-xs text-stone-500 font-bold border-b-2">username</div>
+          <div className="text-md text-stome-700 font-bold">Kevyn Tang</div>
+        </div>
+        <div className="pt-12">
+          <div className="text-xs text-stone-500 font-bold border-b-2">identity</div>
+          <div className="text-sm text-stome-600 font-bold">aaaa-aaaa-aaaa-aaaa-aaaa-aaaa-aaaa-aaaa-</div>
+        </div>
+        <div className="pt-4">
+          <div className="text-xs text-stone-500 font-bold border-b-2">registration time</div>
+          <div className="text-sm text-stome-600 font-bold">2023-01-01</div>
+        </div>
+        <div className="pt-4">
+          <div className="text-xs text-stone-500 font-bold border-b-2">description</div>
+          <div className="text-sm text-stome-600 font-bold">The user is very lazy, he doesn't left anything here</div>
+        </div>
+        <div className="w-fit mb-2 flex space-x-4 mt-auto pt-8 pb-4">
+          <MainButton name="Edit" />
+          <MainButton name="Logout" onClick={doLogout} />
+        </div>
       </div>
-    </div >
+    </div>
   )
 
 }
