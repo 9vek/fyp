@@ -1,13 +1,14 @@
-type User = record {
-    "principal": principal;
+type Account = record {
+    "identity": principal;
     "nickname": text;
     "signature": text;
-    "level": text;
+    "level": nat8;
     "registration_time": text;
 };
 
 type Mail = record {
-    "user": principal;
+    "identity": nat64;
+    "owner": principal;
     "title": text;
     "content": text;
     "post_time": text;
@@ -15,4 +16,6 @@ type Mail = record {
 
 service : {
     "whoami": () -> (principal) query;
+    "update_account": (Account) -> (Account);
+    "test_get_account": () -> (Account);
 }

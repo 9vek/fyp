@@ -4,13 +4,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 
 import MainButton from "../components/MainButton"
-import { logout } from "../store/auth"
+import { currentAccount, logout } from "../store/auth"
 
 const Profile = (props) => {
 
-  const dispatch = useDispatch()
-
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const account = useSelector(currentAccount)
 
   const doLogout = async () => {
     await dispatch(logout())
@@ -25,19 +25,19 @@ const Profile = (props) => {
         </div>
         <div className="pl-32 pt-4">
           <div className="text-xs text-stone-500 font-bold border-b-2">username</div>
-          <div className="text-md text-stome-700 font-bold">Kevyn Tang</div>
+          <div className="text-md text-stome-700 font-bold">{ account.nickname }</div>
         </div>
         <div className="pt-12">
           <div className="text-xs text-stone-500 font-bold border-b-2">identity</div>
-          <div className="text-sm text-stome-600 font-bold">aaaa-aaaa-aaaa-aaaa-aaaa-aaaa-aaaa-aaaa-</div>
+          <div className="text-sm text-stome-600 font-bold">{ account.identity }</div>
         </div>
         <div className="pt-4">
           <div className="text-xs text-stone-500 font-bold border-b-2">registration time</div>
-          <div className="text-sm text-stome-600 font-bold">2023-01-01</div>
+          <div className="text-sm text-stome-600 font-bold">{ account.registration_time }</div>
         </div>
         <div className="pt-4">
-          <div className="text-xs text-stone-500 font-bold border-b-2">description</div>
-          <div className="text-sm text-stome-600 font-bold">The user is very lazy, he doesn't left anything here</div>
+          <div className="text-xs text-stone-500 font-bold border-b-2">signature</div>
+          <div className="text-sm text-stome-600 font-bold">{ account.signature }</div>
         </div>
         <div className="w-fit mb-2 flex space-x-4 mt-auto pt-8 pb-4">
           <MainButton name="Edit" />

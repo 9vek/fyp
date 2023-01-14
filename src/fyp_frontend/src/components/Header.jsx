@@ -20,7 +20,7 @@ const Header = (props) => {
   }
 
   return (
-    <header className="fixed z-50 h-16 w-full bg-stone-900">
+    <header className="fixed z-10 h-16 w-full bg-stone-900">
       <div className="float-left grid h-full w-fit grid-cols-1 place-items-center px-4">
         <a href="/" className="flex space-x-3 text-xl font-bold text-white">
           <div className="grid-cols-1 place-items-center hidden md:grid">

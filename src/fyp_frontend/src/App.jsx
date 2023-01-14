@@ -3,7 +3,15 @@ import './index.css'
 import store from './store/store'
 import { Provider } from 'react-redux'
 import { useSelector, useDispatch } from 'react-redux'
-import { createAuthClient, isAuthClientReady, checkAuthentication, isAuthenticated, createActor } from './store/auth'
+import { 
+  createAuthClient, 
+  isAuthClientReady, 
+  checkAuthentication, 
+  isAuthenticated, 
+  createActor, 
+  isActorReady, 
+  getAccountInfo 
+} from './store/auth'
 
 import { RouterProvider } from "react-router-dom"
 import { createBrowserRouter } from "react-router-dom"
@@ -16,6 +24,7 @@ import Footer from "./components/Footer"
 import LoginView from "./views/LoginView"
 import Home from "./views/Home"
 import Profile from './views/Profile'
+import Loading from './components/Loading'
 
 const router = createBrowserRouter([
   {
@@ -36,11 +45,11 @@ const App = () => {
 
   const dispatch = useDispatch()
   const authClientReady = useSelector(isAuthClientReady)
+  const actorReady = useSelector(isActorReady)
   const authenticated = useSelector(isAuthenticated)
 
   useEffect(() => {
     dispatch(createAuthClient())
-    console.log('create auth client');
   }, [])
 
   useEffect(() => {
@@ -53,8 +62,15 @@ const App = () => {
     }
   }, [authenticated])
 
+  useEffect(() => {
+    if (actorReady) {
+      dispatch(getAccountInfo())
+    }
+  }, [actorReady])
+
   return (
     <div className="">
+      <Loading />
       <Header />
       <div className="min-h-screen bg-stone-50">
         <div className="w-full h-16"></div>

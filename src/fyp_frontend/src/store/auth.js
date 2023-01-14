@@ -78,6 +78,22 @@ export const logout = createAsyncThunk('auth/logout', async() => {
   return true
 })
 
+/*
+  Get Account Info
+*/
+export const getAccountInfo = createAsyncThunk('auth/getAccountInfo', async() => {
+  const account = await actor.test_get_account()
+  account.identity = account.identity.toString()
+  return account
+})
+
+const emptyAccount = {
+  identity: "iiii-iiii-iiii-iiii",
+  nickname: "Unknown",
+  signature: "no signature was left",
+  level: 0,
+  registration_time: "00-00-00"
+}
 
 // auth global state
 export const authSlice = createSlice({
@@ -86,6 +102,9 @@ export const authSlice = createSlice({
     isAuthClientReady: false,
     isActorReady: false,
     isAuthenticated: false,
+    currentAccount: {
+      ...emptyAccount
+    }
   },
   reducers: {
 
@@ -102,6 +121,8 @@ export const authSlice = createSlice({
     }).addCase(logout.fulfilled, (state) => {
       state.isAuthenticated = false
       state.isActorReady = false
+    }).addCase(getAccountInfo.fulfilled, (state, action) => {
+      state.currentAccount = action.payload
     })
   }
 })
@@ -113,5 +134,5 @@ export default authSlice.reducer
 export const isAuthClientReady = state => state.auth.isAuthClientReady
 export const isActorReady = state => state.auth.isActorReady
 export const isAuthenticated = state => state.auth.isAuthenticated
-
+export const currentAccount = state => state.auth.currentAccount
 
