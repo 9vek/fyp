@@ -89,11 +89,14 @@ export const logout = createAsyncThunk('auth/logout', async(_, { dispatch }) => 
 })
 
 /*
-  Get Account Info
+  get account info
 */
 export const getAccountInfo = createAsyncThunk('auth/getAccountInfo', async(_, { dispatch }) => {
   dispatch(startLoading())
-  const account = await actor.test_get_account()
+  const account = await actor.update_account({
+    nickname: "kevyn",
+    signature: "this is kevyn's signature! "
+  })
   account.identity = account.identity.toString()
   dispatch(stopLoading())
   return account
@@ -121,6 +124,7 @@ export const authSlice = createSlice({
   reducers: {
 
   },
+  // TODO: maybe remake this with normal reducers
   extraReducers(builder) {
     builder.addCase(createAuthClient.fulfilled, (state) => {
       state.isAuthClientReady = true

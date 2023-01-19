@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux"
 import MainButton from "../components/MainButton"
 import { isAuthClientReady, isAuthenticated, login } from "../store/auth"
+import StandardLayout from "../layouts/StandardLayout";
 
 const LoginView = (props) => {
 
@@ -20,10 +21,12 @@ const LoginView = (props) => {
   }
 
   return (
-    <div className="h-screen grid grid-cols-1 place-items-center">
-      <div>{authenticated ? "Authenticated" : "Unauthenticated"}</div>
-      <MainButton onClick={doLogin} name="Login With Internet Identity" />
-    </div>
+    <StandardLayout>
+      <div className="h-screen grid grid-cols-1 place-items-center">
+        <div>{authenticated ? "Authenticated" : "Unauthenticated"}</div>
+        <MainButton onClick={doLogin} name="Login With Internet Identity" />
+      </div>
+    </StandardLayout>
   )
 
 }

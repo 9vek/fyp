@@ -4,7 +4,7 @@ import Icon from '@mdi/react'
 const HeaderButton = (props) => {
 
   return (
-    <div className="h-full grid grid-cols-1 place-items-center px-2 hover:bg-stone-800">
+    <div onClick={props.onClick} className="cursor-pointer h-full grid grid-cols-1 place-items-center px-2 hover:bg-stone-800">
       <a href={props.url}>
         <Icon path={props.icon}
           size={1.2}

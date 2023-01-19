@@ -31,9 +31,23 @@ impl State {
         }
     }
 
-    pub fn update_account(&mut self, principal: Principal, account: Account) -> Account {
-        self.accounts.insert(principal, account.clone());
-        account
+    pub fn update_account(&mut self, principal: Principal, account_for_update: AccountForUpdate) -> Account {
+        if !self.accounts.contains_key(&principal) {
+            let account = Account {
+                identity: principal, 
+                nickname: account_for_update.nickname,
+                signature: account_for_update.signature,
+                level: 0,
+                registration_time: time().to_string()
+            };
+            self.accounts.insert(principal, account.clone());
+            account
+        } else {
+            let mut account = self.accounts.get_mut(&principal).unwrap();
+            account.nickname = account_for_update.nickname;
+            account.signature = account_for_update.signature;
+            account.clone()
+        }
     }
 
 }
@@ -48,7 +62,7 @@ fn whoami() -> Principal {
 }
 
 #[update]
-fn update_account(account: Account) -> Account {
+fn update_account(account: AccountForUpdate) -> Account {
     STATE.with(|state| {
         let mut state = state.borrow_mut();
         let principal = caller();

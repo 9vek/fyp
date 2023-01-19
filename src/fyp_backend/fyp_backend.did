@@ -26,6 +26,6 @@ type MailForUpdate = record {
 
 service : {
     "whoami": () -> (principal) query;
-    "update_account": (Account) -> (Account);
+    "update_account": (AccountForUpdate) -> (Account);
     "test_get_account": () -> (Account);
 }

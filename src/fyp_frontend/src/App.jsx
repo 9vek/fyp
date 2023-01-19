@@ -3,14 +3,14 @@ import './index.css'
 import store from './store/store'
 import { Provider } from 'react-redux'
 import { useSelector, useDispatch } from 'react-redux'
-import { 
-  createAuthClient, 
-  isAuthClientReady, 
-  checkAuthentication, 
-  isAuthenticated, 
-  createActor, 
-  isActorReady, 
-  getAccountInfo 
+import {
+  createAuthClient,
+  isAuthClientReady,
+  checkAuthentication,
+  isAuthenticated,
+  createActor,
+  isActorReady,
+  getAccountInfo
 } from './store/auth'
 
 import { RouterProvider } from "react-router-dom"
@@ -25,6 +25,7 @@ import LoginView from "./views/LoginView"
 import Home from "./views/Home"
 import Profile from './views/Profile'
 import Loading from './components/Loading'
+import ProfileEdit from './views/ProfileEdit'
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />,
+  },
+  {
+    path: "/profile/edit",
+    element: <ProfileEdit />
   }
 ]);
 
@@ -49,44 +54,39 @@ const App = () => {
   const authenticated = useSelector(isAuthenticated)
 
   useEffect(() => {
+    console.log("create auth client")
     dispatch(createAuthClient())
   }, [])
 
   useEffect(() => {
+    console.log("check authentication")
     dispatch(checkAuthentication())
   }, [authClientReady])
 
   useEffect(() => {
+    console.log("create actor")
     if (authenticated) {
       dispatch(createActor())
     }
   }, [authenticated])
 
   useEffect(() => {
+    console.log("get account info")
     if (actorReady) {
       dispatch(getAccountInfo())
     }
   }, [actorReady])
 
   return (
-    <div className="">
-      <Loading />
-      <Header />
-      <div className="min-h-screen bg-stone-50">
-        <div className="w-full h-16"></div>
-        <React.StrictMode>
-          <RouterProvider router={ router } />
-        </React.StrictMode>
-      </div>
-      <hr />
-      <Footer />
-    </div>
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
   )
 }
 
 const root = createRoot(document.getElementById("app"))
 root.render(
-  <Provider store={ store }>
+  <Provider store={store}>
     <App />
   </Provider>
 )
