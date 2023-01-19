@@ -2,6 +2,7 @@ import { canisterId as backendCanisterId, createActor as backendCreateActor } fr
 import { AuthClient } from "@dfinity/auth-client"
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { startLoading, stopLoading } from "./control";
 
 
 // internet identity canister link
@@ -33,57 +34,68 @@ export const getActor = () => {
 /* 
   initialize auth client
 */
-export const createAuthClient = createAsyncThunk('auth/createAuthClient', async (dispatch) => {
+export const createAuthClient = createAsyncThunk('auth/createAuthClient', async (_, { dispatch }) => {
+  dispatch(startLoading())
   authClient = await AuthClient.create()
+  dispatch(stopLoading())
   return true
 })
 
 /* 
   initialize backend connector
 */
-export const createActor = createAsyncThunk('auth/createActor', async () => {
+export const createActor = createAsyncThunk('auth/createActor', async (_, { dispatch }) => {
+  dispatch(startLoading())
   actor = await backendCreateActor(backendCanisterId, {
     agentOptions: {
       identity: authClient.getIdentity(),
     },
   })
+  dispatch(stopLoading())
   return true
 })
 
 /* 
   authentication status checker
 */
-export const checkAuthentication = createAsyncThunk('auth/checkAuthentication', async () => {
-  return await authClient.isAuthenticated()
+export const checkAuthentication = createAsyncThunk('auth/checkAuthentication', async (_, { dispatch }) => {
+  dispatch(startLoading())
+  const isAuthenticated = await authClient.isAuthenticated()
+  dispatch(stopLoading())
+  return isAuthenticated
 })
 
 /* 
   login function
 */
-export const login = createAsyncThunk('auth/login', async () => {
+export const login = createAsyncThunk('auth/login', async (_, { dispatch }) => {
+  dispatch(startLoading())
   await authClient.login({
     identityProvider,
-    onSuccess: () => {
-      return true
-    },
-  });
+    onSuccess: () => {},
+  })
+  dispatch(stopLoading())
 })
 
 /* 
   logout function
 */
-export const logout = createAsyncThunk('auth/logout', async() => {
+export const logout = createAsyncThunk('auth/logout', async(_, { dispatch }) => {
+  dispatch(startLoading())
   await authClient.logout()
   actor = null
+  dispatch(stopLoading())
   return true
 })
 
 /*
   Get Account Info
 */
-export const getAccountInfo = createAsyncThunk('auth/getAccountInfo', async() => {
+export const getAccountInfo = createAsyncThunk('auth/getAccountInfo', async(_, { dispatch }) => {
+  dispatch(startLoading())
   const account = await actor.test_get_account()
   account.identity = account.identity.toString()
+  dispatch(stopLoading())
   return account
 })
 

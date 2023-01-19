@@ -6,12 +6,22 @@ type Account = record {
     "registration_time": text;
 };
 
+type AccountForUpdate = record {
+    "nickname": text;
+    "signature": text;
+};
+
 type Mail = record {
     "identity": nat64;
     "owner": principal;
     "title": text;
     "content": text;
     "post_time": text;
+};
+
+type MailForUpdate = record {
+    "title": text;
+    "content": text;
 };
 
 service : {

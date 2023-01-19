@@ -13,10 +13,22 @@ pub struct Account {
 }
 
 #[derive(Clone, Debug, CandidType, Deserialize)]
+pub struct AccountForUpdate {
+    pub nickname: String,
+    pub signature: String,
+}
+
+#[derive(Clone, Debug, CandidType, Deserialize)]
 pub struct Mail {
     pub identity: u64,
     pub owner: Principal,
     pub title: String,
     pub content: String,
     pub post_time: String,
+}
+
+#[derive(Clone, Debug, CandidType, Deserialize)]
+pub struct MailForUpdate {
+    pub title: String,
+    pub content: String,
 }
