@@ -7,6 +7,8 @@ import MainButton from "../components/MainButton"
 import { isAuthClientReady, isAuthenticated, login } from "../store/auth"
 import StandardLayout from "../layouts/StandardLayout";
 
+import { mdiLogin } from "@mdi/js"
+
 const LoginView = (props) => {
 
   const navigate = useNavigate()
@@ -24,7 +26,7 @@ const LoginView = (props) => {
     <StandardLayout>
       <div className="h-screen grid grid-cols-1 place-items-center">
         <div>{authenticated ? "Authenticated" : "Unauthenticated"}</div>
-        <MainButton onClick={doLogin} name="Login With Internet Identity" />
+        <MainButton onClick={doLogin} name="Login With Internet Identity" icon={mdiLogin} />
       </div>
     </StandardLayout>
   )

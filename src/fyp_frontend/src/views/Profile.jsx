@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import MainButton from "../components/MainButton"
 import StandardLayout from "../layouts/StandardLayout";
 import { currentAccount, logout } from "../store/auth"
+import { mdiPencil, mdiLogout } from "@mdi/js"
 
 const Profile = (props) => {
 
@@ -47,8 +48,8 @@ const Profile = (props) => {
             <div className="text-sm text-stome-600 font-bold">{account.signature}</div>
           </div>
           <div className="w-fit mb-2 flex space-x-4 mt-auto pt-8 pb-4">
-            <MainButton name="Edit" onClick={doEdit} />
-            <MainButton name="Logout" onClick={doLogout} />
+            <MainButton name="Edit" icon={mdiPencil} onClick={doEdit} />
+            <MainButton buttonType="danger" name="Logout" icon={mdiLogout} onClick={doLogout} />
           </div>
         </div>
       </div>

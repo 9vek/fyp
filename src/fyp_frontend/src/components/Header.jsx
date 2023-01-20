@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { isAuthenticated } from "../store/auth"
 import HeaderButton from "./HeaderButton"
 
-import { mdiAccount } from "../../../../node_modules/@mdi/js/mdi"
+import { mdiAccount, mdiAccountDetails } from "@mdi/js"
 
 const Header = (props) => {
 
@@ -21,7 +21,7 @@ const Header = (props) => {
     if (!authenticated) {
       return <HeaderButton name="Login" icon={mdiAccount} onClick={toLogin} />
     } else {
-      return <HeaderButton name="Profile" icon={mdiAccount} onClick={toProfile} />
+      return <HeaderButton name="Profile" icon={mdiAccountDetails} onClick={toProfile} />
     }
 
   }

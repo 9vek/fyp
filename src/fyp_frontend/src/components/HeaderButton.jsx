@@ -1,7 +1,12 @@
 import React from "react"
 import Icon from '@mdi/react'
+import { mdiCursorDefault } from "@mdi/js/mdi"
 
 const HeaderButton = (props) => {
+
+  if (props.icon == undefined) {
+    props.icon = mdiCursorDefault
+  }
 
   return (
     <div onClick={props.onClick} className="cursor-pointer h-full grid grid-cols-1 place-items-center px-2 hover:bg-stone-800">
