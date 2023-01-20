@@ -91,12 +91,9 @@ export const logout = createAsyncThunk('auth/logout', async(_, { dispatch }) => 
 /*
   get account info
 */
-export const getAccountInfo = createAsyncThunk('auth/getAccountInfo', async(_, { dispatch }) => {
+export const updateAccountInfo = createAsyncThunk('auth/updateAccountInfo', async(accountInfo, { dispatch }) => {
   dispatch(startLoading())
-  const account = await actor.update_account({
-    nickname: "kevyn",
-    signature: "this is kevyn's signature! "
-  })
+  const account = await actor.update_account(accountInfo)
   account.identity = account.identity.toString()
   dispatch(stopLoading())
   return account
@@ -137,7 +134,7 @@ export const authSlice = createSlice({
     }).addCase(logout.fulfilled, (state) => {
       state.isAuthenticated = false
       state.isActorReady = false
-    }).addCase(getAccountInfo.fulfilled, (state, action) => {
+    }).addCase(updateAccountInfo.fulfilled, (state, action) => {
       state.currentAccount = action.payload
     })
   }

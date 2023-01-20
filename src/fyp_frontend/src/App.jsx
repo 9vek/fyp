@@ -10,7 +10,7 @@ import {
   isAuthenticated,
   createActor,
   isActorReady,
-  getAccountInfo
+  updateAccountInfo
 } from './store/auth'
 
 import { RouterProvider } from "react-router-dom"
@@ -19,12 +19,9 @@ import { createBrowserRouter } from "react-router-dom"
 import React, { useEffect } from "react"
 import { createRoot } from "react-dom/client"
 
-import Header from "./components/Header"
-import Footer from "./components/Footer"
 import LoginView from "./views/LoginView"
 import Home from "./views/Home"
 import Profile from './views/Profile'
-import Loading from './components/Loading'
 import ProfileEdit from './views/ProfileEdit'
 
 const router = createBrowserRouter([
@@ -73,7 +70,10 @@ const App = () => {
   useEffect(() => {
     console.log("get account info")
     if (actorReady) {
-      dispatch(getAccountInfo())
+      dispatch(updateAccountInfo({
+        nickname: "",
+        signature: ""
+      }))
     }
   }, [actorReady])
 

@@ -21,7 +21,7 @@ const MainButton = (props) => {
     <div
       onClick={props.onClick}
       className={className}>
-      <Icon path={props.icon} size={1.2}
+      <Icon path={props.icon} size={1}
         className="inline-block mr-1.5 mb-1 text-stone-50" />
       <span>{props.name}</span>
     </div>
