@@ -31,7 +31,11 @@ impl State {
         }
     }
 
-    pub fn update_account(&mut self, principal: Principal, account_for_update: AccountForUpdate) -> Account {
+    pub fn get_account_info(&self, principal: Principal) -> Account {
+        self.accounts.get(&principal).unwrap().clone()
+    }
+
+    pub fn update_account_info(&mut self, principal: Principal, account_for_update: AccountForUpdate) -> Account {
         if !self.accounts.contains_key(&principal) {
             let account = Account {
                 identity: principal, 
@@ -61,22 +65,40 @@ fn whoami() -> Principal {
     caller()
 }
 
-#[update]
-fn update_account(account: AccountForUpdate) -> Account {
+#[query]
+fn is_account_exists() -> bool {
     STATE.with(|state| {
-        let mut state = state.borrow_mut();
+        let state = state.borrow();
         let principal = caller();
-        state.update_account(principal, account)
+        state.has_account(principal)
     })
 }
 
 #[query]
-fn test_get_account() -> Account {
-    Account { 
-        identity: caller(), 
-        nickname: "Test Account".to_string(), 
-        signature: "A piece of text".to_string(), 
-        level: 1, 
-        registration_time: time().to_string()
-    }
+fn get_account_info() -> Account {
+    STATE.with(|state| {
+        let state = state.borrow();
+        let principal = caller();
+        state.get_account_info(principal)
+    })
 }
+
+#[update]
+fn update_account_info(account_for_update: AccountForUpdate) -> Account {
+    STATE.with(|state| {
+        let mut state = state.borrow_mut();
+        let principal = caller();
+        state.update_account_info(principal, account_for_update)
+    })
+}
+
+// #[query]
+// fn test_get_account() -> Account {
+//     Account { 
+//         identity: caller(), 
+//         nickname: "Test Account".to_string(), 
+//         signature: "A piece of text".to_string(), 
+//         level: 1, 
+//         registration_time: time().to_string()
+//     }
+// }

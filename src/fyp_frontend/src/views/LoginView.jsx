@@ -14,7 +14,6 @@ const LoginView = (props) => {
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
-  const authClientReady = useSelector(isAuthClientReady)
   const authenticated = useSelector(isAuthenticated)
 
   const doLogin = async () => {

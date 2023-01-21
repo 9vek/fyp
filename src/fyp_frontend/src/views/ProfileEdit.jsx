@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import MainButton from "../components/MainButton"
 import StandardLayout from "../layouts/StandardLayout";
-import { currentAccount, updateAccountInfo } from "../store/auth"
+import { checkIfAccountExists, currentAccount, updateAccountInfo } from "../store/auth"
 
 import { mdiUpload, mdiCancel, mdiCamera } from "@mdi/js"
 import Icon from "@mdi/react";
@@ -29,6 +29,7 @@ const ProfileEdit = (props) => {
 
   const doSave = async () => {
     await dispatch(updateAccountInfo({nickname,signature}))
+    await dispatch(checkIfAccountExists())
     navigate('/profile')
   }
 

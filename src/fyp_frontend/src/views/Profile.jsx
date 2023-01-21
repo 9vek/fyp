@@ -5,14 +5,27 @@ import { useNavigate } from "react-router-dom";
 
 import MainButton from "../components/MainButton"
 import StandardLayout from "../layouts/StandardLayout";
-import { currentAccount, logout } from "../store/auth"
+import { 
+  checkIfAccountExists,
+  currentAccount, 
+  isAccountExists, 
+  isActorReady, 
+  logout } from "../store/auth"
 import { mdiPencil, mdiLogout } from "@mdi/js"
 
 const Profile = (props) => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const actorReady = useSelector(isActorReady)
+  const accountExists = useSelector(isAccountExists)
   const account = useSelector(currentAccount)
+
+  useEffect(() => {
+    if (!accountExists) {
+      navigate('/profile/edit')
+    }
+  }, [accountExists])
 
   const doEdit = () => {
     navigate('/profile/edit')

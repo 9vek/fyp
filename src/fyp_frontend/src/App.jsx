@@ -6,10 +6,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   createAuthClient,
   isAuthClientReady,
-  checkAuthentication,
+  checkIfAuthenticated,
   isAuthenticated,
   createActor,
   isActorReady,
+  isAccountExists,
+  getAccountInfo,
+  checkIfAccountExists,
   updateAccountInfo
 } from './store/auth'
 
@@ -23,6 +26,7 @@ import LoginView from "./views/LoginView"
 import Home from "./views/Home"
 import Profile from './views/Profile'
 import ProfileEdit from './views/ProfileEdit'
+import MarkdownEditor from './views/MarkdownEditor'
 
 const router = createBrowserRouter([
   {
@@ -40,6 +44,10 @@ const router = createBrowserRouter([
   {
     path: "/profile/edit",
     element: <ProfileEdit />
+  },
+  {
+    path: "/editor",
+    element: <MarkdownEditor />
   }
 ]);
 
@@ -49,6 +57,8 @@ const App = () => {
   const authClientReady = useSelector(isAuthClientReady)
   const actorReady = useSelector(isActorReady)
   const authenticated = useSelector(isAuthenticated)
+  const accountExists = useSelector(isAccountExists)
+
 
   useEffect(() => {
     console.log("create auth client")
@@ -56,26 +66,32 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    console.log("check authentication")
-    dispatch(checkAuthentication())
+    if (authClientReady) {
+      console.log("check authentication")
+      dispatch(checkIfAuthenticated())
+    }
   }, [authClientReady])
 
   useEffect(() => {
-    console.log("create actor")
     if (authenticated) {
+      console.log("create actor")
       dispatch(createActor())
     }
   }, [authenticated])
 
   useEffect(() => {
-    console.log("get account info")
     if (actorReady) {
-      dispatch(updateAccountInfo({
-        nickname: "",
-        signature: ""
-      }))
+      console.log("check if account exists")
+      dispatch(checkIfAccountExists())
     }
   }, [actorReady])
+
+  useEffect(() => {
+    if (accountExists) {
+      console.log("get account info")
+      dispatch(getAccountInfo())
+    }
+  }, [accountExists])
 
   return (
     <React.StrictMode>
