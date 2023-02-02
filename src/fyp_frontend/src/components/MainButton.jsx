@@ -10,7 +10,7 @@ const buttonTypes = {
 
 const MainButton = (props) => {
 
-  let className = "select-none py-2 px-4 text-lg font-bold text-center rounded-md text-stone-50 cursor-pointer "
+  let className = "select-none py-1 px-2 text-md font-bold text-center rounded-md text-stone-50 cursor-pointer "
   className += props.buttonType && buttonTypes[props.buttonType] ? buttonTypes[props.buttonType] : buttonTypes.normal
 
   if (props.icon == undefined) {
@@ -21,7 +21,7 @@ const MainButton = (props) => {
     <div
       onClick={props.onClick}
       className={className}>
-      <Icon path={props.icon} size={1}
+      <Icon path={props.icon} size={0.8}
         className="inline-block mr-1.5 mb-1 text-stone-50" />
       <span>{props.name}</span>
     </div>
